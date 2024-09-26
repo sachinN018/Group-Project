@@ -1,0 +1,72 @@
+Question : wap to implement rock , paper scissors between you (enter your choice) and computer (generate random number).
+
+//Somye :  Function to get the computer's choice
+//Sachin : Function to display choice 
+//Harshika : Function to display choice (0: Rock, 1: Paper, 2: Scissors)
+//Sonu :  Function to determine the winner
+
+
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+// Function to get the computer's choice
+int getComputerChoice() {
+    // Generate a random number between 0 and 2
+    return rand() % 3;
+}
+
+// Function to display choice (0: Rock, 1: Paper, 2: Scissors)
+void displayChoice(int choice) {
+    switch (choice) {
+        case 0: printf("Rock"); break;
+        case 1: printf("Paper"); break;
+        case 2: printf("Scissors"); break;
+    }
+}
+
+// Function to determine the winner
+void determineWinner(int userChoice, int computerChoice) {
+    printf("\nYour choice: ");
+    displayChoice(userChoice);
+    printf("\nComputer's choice: ");
+    displayChoice(computerChoice);
+    printf("\n");
+
+    // Conditions to determine the winner
+    if (userChoice == computerChoice) {
+        printf("It's a tie!\n");
+    } else if ((userChoice == 0 && computerChoice == 2) || // Rock beats Scissors
+               (userChoice == 1 && computerChoice == 0) || // Paper beats Rock
+               (userChoice == 2 && computerChoice == 1)) { // Scissors beat Paper
+        printf("You win!\n");
+    } else {
+        printf("Computer wins!\n");
+    }
+}
+
+int main() {
+    int userChoice;
+    srand(time(0));  // Seed for random number generation
+
+    // Display choices
+    printf("Welcome to Rock, Paper, Scissors!\n");
+    printf("Enter your choice (0: Rock, 1: Paper, 2: Scissors): ");
+    scanf("%d", &userChoice);
+
+    if (userChoice < 0 || userChoice > 2) {
+        printf("Invalid choice! Please enter 0, 1, or 2.\n");
+        return 1;
+    }
+
+    // Generate computer's choice
+    int computerChoice = getComputerChoice();
+
+    // Determine and display the winner
+    determineWinner(userChoice, computerChoice);
+
+    return 0;
+}
