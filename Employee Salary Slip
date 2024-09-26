@@ -1,0 +1,70 @@
+// Question : Write a code in "C" Employee Salary Slip Generator .
+
+
+//Somye :  Implement the main loop and menu Display.
+//Sachin : Structure to store employee details
+//Harshika : Function to calculate salary details
+//Sonu : Function to print salary slip
+
+#include <stdio.h>
+#include <string.h>
+
+// Structure to store employee details
+struct Employee {
+    char name[100];
+    int id;
+    float basic_salary;
+    float hra;
+    float da;
+    float gross_salary;
+    float deductions;
+    float net_salary;
+};
+
+// Function to calculate salary details
+void calculate_salary(struct Employee *emp) {
+    emp->hra = 0.20 * emp->basic_salary;  // 20% of basic salary
+    emp->da = 0.10 * emp->basic_salary;   // 10% of basic salary
+    emp->gross_salary = emp->basic_salary + emp->hra + emp->da;
+    emp->deductions = 0.05 * emp->gross_salary;  // Assuming 5% deductions
+    emp->net_salary = emp->gross_salary - emp->deductions;
+}
+
+// Function to print salary slip
+void print_salary_slip(struct Employee emp) {
+    printf("\n\n****** Salary Slip ******\n");
+    printf("Employee Name   : %s\n", emp.name);
+    printf("Employee ID     : %d\n", emp.id);
+    printf("-----------------------------\n");
+    printf("Basic Salary    : %.2f\n", emp.basic_salary);
+    printf("HRA             : %.2f\n", emp.hra);
+    printf("DA              : %.2f\n", emp.da);
+    printf("Gross Salary    : %.2f\n", emp.gross_salary);
+    printf("Deductions      : %.2f\n", emp.deductions);
+    printf("-----------------------------\n");
+    printf("Net Salary      : %.2f\n", emp.net_salary);
+    printf("-----------------------------\n");
+}
+
+int main() {
+    struct Employee emp;
+
+    // Input employee details
+    printf("Enter employee name: ");
+    fgets(emp.name, sizeof(emp.name), stdin);
+    emp.name[strcspn(emp.name, "\n")] = '\0';  // Remove newline character
+
+    printf("Enter employee ID: ");
+    scanf("%d", &emp.id);
+
+    printf("Enter basic salary: ");
+    scanf("%f", &emp.basic_salary);
+
+    // Calculate salary details
+    calculate_salary(&emp);
+
+    // Print salary slip
+    print_salary_slip(emp);
+
+    return 0;
+}
